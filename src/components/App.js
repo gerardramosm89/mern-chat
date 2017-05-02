@@ -37,8 +37,8 @@ class App extends React.Component {
     return this.state.messages.map(message => {
       return (
         <li>
-          <p>{message.from}</p>
-          <p>{message.text}</p>
+          <p>{`${message.from}: ${message.text}`}</p>
+          {/*<p>{message.text}</p>*/}
         </li>
       );
     })
@@ -78,9 +78,9 @@ class App extends React.Component {
             <button className="btn btn-primary">Submit</button>
           </form>
 
-          <ol id="messages">
+          <ul id="messages">
             {this.renderMessages()}
-          </ol>
+          </ul>
 
         </div>
       </div>

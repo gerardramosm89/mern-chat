@@ -9630,12 +9630,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             'p',
             null,
-            message.from
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            message.text
+            message.from + ': ' + message.text
           )
         );
       });
@@ -9702,7 +9697,7 @@ var App = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'ol',
+            'ul',
             { id: 'messages' },
             this.renderMessages()
           )
