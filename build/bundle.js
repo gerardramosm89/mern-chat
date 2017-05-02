@@ -9605,10 +9605,10 @@ var App = function (_React$Component) {
       this.socket.on('newMessage', function (email) {
         console.log('New message received', email);
       });
-      this.socket.emit('createMessage', {
-        from: 'chris@kyg.com',
-        text: "Hey man this is from the client!"
-      });
+      // this.socket.emit('createMessage', {
+      //   from: 'chris@kyg.com',
+      //   text: "Hey man this is from the client!"
+      // });
     }
   }, {
     key: 'handleSubmit',
