@@ -9595,6 +9595,9 @@ var App = function (_React$Component) {
       this.socket.on('connect', function () {
         console.log("Connected to server");
       });
+      this.socket.on('disconnect', function () {
+        console.log("Disconnected from server");
+      });
     }
   }, {
     key: 'render',

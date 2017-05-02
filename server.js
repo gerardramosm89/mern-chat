@@ -26,9 +26,13 @@ app.get('*', function(req, res) {
 });
 
 
-io.on('connection', () => {
+io.on('connection', (socket) => {
     console.log(`New user connected`);
+    socket.on('disconnect', () => {
+        console.log("User disconnected");
+    });
 });
+
 
 server.listen(port, function(){
     console.log(`Express server is up on port ${port}`);
