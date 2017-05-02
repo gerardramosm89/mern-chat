@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const socketIO = require('socket.io');
-
+const { generateMessage } = require('./server/utils/message');
 // Create the app with express
 const app = express();
 
@@ -33,17 +33,10 @@ io.on('connection', (socket) => {
         console.log("User disconnected");
     });
 
-    socket.emit('newMessage', {
-        from: 'Admin',
-        text: 'Welcome to the chat app',
-        createdAt: new Date().getTime()        
-    });
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to Gerry\'s MERN Chat App!'));
 
-    socket.broadcast.emit('newMessage', {
-        from: 'Admin',
-        text: 'New user joined.',
-        createdAt: new Date().getTime()
-    })
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joined!'));
+    
     socket.on('createMessage', (newMessage) => {
         console.log('newEmail is: ', newMessage);
         io.emit('newMessage', {
