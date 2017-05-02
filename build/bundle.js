@@ -9628,7 +9628,7 @@ var App = function (_React$Component) {
         { className: 'container' },
         _react2.default.createElement(
           'div',
-          { className: 'display-3' },
+          { className: 'col-10 offset-1' },
           _react2.default.createElement(
             'h1',
             null,
@@ -9637,9 +9637,19 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             'form',
             { onSubmit: this.handleSubmit.bind(this) },
+            _react2.default.createElement(
+              'label',
+              null,
+              'from: '
+            ),
             _react2.default.createElement('input', { onChange: function onChange(e) {
                 return console.log(e.target.value);
               }, className: 'form-control', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'message:'
+            ),
             _react2.default.createElement('input', { onChange: function onChange(e) {
                 return console.log(e.target.value);
               }, className: 'form-control', type: 'text' }),

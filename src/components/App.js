@@ -38,11 +38,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="display-3">
+        <div className="col-10 offset-1">
           <h1>MERN Chat!</h1>
           <form onSubmit={this.handleSubmit.bind(this) }>
-            <input onChange={(e) => console.log(e.target.value)} className="form-control" type="text"/>
-            <input onChange={(e) => console.log(e.target.value)} className="form-control" type="text"/>
+            <label>from: </label>
+            <input onChange={(e) => console.log(e.target.value)} className="form-control" type="text" />
+            <label>message:</label>
+            <input onChange={(e) => console.log(e.target.value)} className="form-control" type="text" />
             <button className="btn btn-primary">Submit</button> 
           </form>
          

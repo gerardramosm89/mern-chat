@@ -33,14 +33,13 @@ io.on('connection', (socket) => {
         console.log("User disconnected");
     });
 
-    setTimeout(function() {socket.emit('newMessage', {
-        from: 'gerry@kyg.com',
-        text: 'Hello from server!',
-        createdAt: 123
-    })}, 1000);
-
     socket.on('createMessage', (newMessage) => {
         console.log('newEmail is: ', newMessage);
+        io.emit('newMessage', {
+            from: newMessage.from,
+            text: newMessage.text,
+            createdAt: new Date().getTime()
+        });
     });
 });
 
