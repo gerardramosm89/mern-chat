@@ -8,7 +8,8 @@ class App extends React.Component {
     this.socket = SocketIOClient('http://localhost:8081');
     this.state = {
       from: '',
-      message: ''
+      message: '',
+      messages: []
     }
 
   }
@@ -19,21 +20,50 @@ class App extends React.Component {
     this.socket.on('disconnect', () => {
       console.log("Disconnected from server");
     });
-    this.socket.on('newMessage', (email) => {
-      console.log('New message received', email);
+    this.socket.on('newMessage', (message) => {
+      console.log('New message received', message);
+      let curMessages = this.state.messages;
+      curMessages.push(message);
+      this.setState({ 
+        messages: curMessages 
+      }, () => console.log("message was pushed!"));
     });
     // this.socket.emit('createMessage', {
     //   from: 'chris@kyg.com',
     //   text: "Hey man this is from the client!"
     // });
   }
+  renderMessages() {
+    return this.state.messages.map(message => {
+      return (
+        <li>
+          <p>{message.from}</p>
+          <p>{message.text}</p>
+        </li>
+      );
+    })
+  }
   handleSubmit(e) {
     e.preventDefault();
-    console.log("Form submitted");
     this.socket.emit('createMessage', {
-      from: 'chris@kyg.com',
-      text: "Hey man this is from the client!"
+      from: this.state.from,
+      text: this.state.message
+    }, (data) => {
+      console.log(data);
     });
+  }
+  changeFrom(e) {
+    let targetName = e.target.name;
+    switch (targetName) {
+      case 'from':
+        this.setState({ from: e.target.value });
+        break;
+      case 'message':
+        this.setState({ message: e.target.value });
+        break;
+      default:
+        console.log("We are out of targetNames");
+    }
   }
   render() {
     return (
@@ -42,12 +72,16 @@ class App extends React.Component {
           <h1>MERN Chat!</h1>
           <form onSubmit={this.handleSubmit.bind(this) }>
             <label>from: </label>
-            <input onChange={(e) => console.log(e.target.value)} className="form-control" type="text" />
+            <input name="from" onChange={this.changeFrom.bind(this)} className="form-control" type="text" />
             <label>message:</label>
-            <input onChange={(e) => console.log(e.target.value)} className="form-control" type="text" />
-            <button className="btn btn-primary">Submit</button> 
+            <input name="message" onChange={this.changeFrom.bind(this)} className="form-control" type="text" />
+            <button className="btn btn-primary">Submit</button>
           </form>
-         
+
+          <ol id="messages">
+            {this.renderMessages()}
+          </ol>
+
         </div>
       </div>
     );

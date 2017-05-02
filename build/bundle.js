@@ -9587,7 +9587,8 @@ var App = function (_React$Component) {
     _this.socket = (0, _socket2.default)('http://localhost:8081');
     _this.state = {
       from: '',
-      message: ''
+      message: '',
+      messages: []
     };
 
     return _this;
@@ -9596,14 +9597,23 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.socket.on('connect', function () {
         console.log("Connected to server");
       });
       this.socket.on('disconnect', function () {
         console.log("Disconnected from server");
       });
-      this.socket.on('newMessage', function (email) {
-        console.log('New message received', email);
+      this.socket.on('newMessage', function (message) {
+        console.log('New message received', message);
+        var curMessages = _this2.state.messages;
+        curMessages.push(message);
+        _this2.setState({
+          messages: curMessages
+        }, function () {
+          return console.log("message was pushed!");
+        });
       });
       // this.socket.emit('createMessage', {
       //   from: 'chris@kyg.com',
@@ -9611,14 +9621,50 @@ var App = function (_React$Component) {
       // });
     }
   }, {
+    key: 'renderMessages',
+    value: function renderMessages() {
+      return this.state.messages.map(function (message) {
+        return _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            'p',
+            null,
+            message.from
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            message.text
+          )
+        );
+      });
+    }
+  }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       e.preventDefault();
-      console.log("Form submitted");
       this.socket.emit('createMessage', {
-        from: 'chris@kyg.com',
-        text: "Hey man this is from the client!"
+        from: this.state.from,
+        text: this.state.message
+      }, function (data) {
+        console.log(data);
       });
+    }
+  }, {
+    key: 'changeFrom',
+    value: function changeFrom(e) {
+      var targetName = e.target.name;
+      switch (targetName) {
+        case 'from':
+          this.setState({ from: e.target.value });
+          break;
+        case 'message':
+          this.setState({ message: e.target.value });
+          break;
+        default:
+          console.log("We are out of targetNames");
+      }
     }
   }, {
     key: 'render',
@@ -9642,22 +9688,23 @@ var App = function (_React$Component) {
               null,
               'from: '
             ),
-            _react2.default.createElement('input', { onChange: function onChange(e) {
-                return console.log(e.target.value);
-              }, className: 'form-control', type: 'text' }),
+            _react2.default.createElement('input', { name: 'from', onChange: this.changeFrom.bind(this), className: 'form-control', type: 'text' }),
             _react2.default.createElement(
               'label',
               null,
               'message:'
             ),
-            _react2.default.createElement('input', { onChange: function onChange(e) {
-                return console.log(e.target.value);
-              }, className: 'form-control', type: 'text' }),
+            _react2.default.createElement('input', { name: 'message', onChange: this.changeFrom.bind(this), className: 'form-control', type: 'text' }),
             _react2.default.createElement(
               'button',
               { className: 'btn btn-primary' },
               'Submit'
             )
+          ),
+          _react2.default.createElement(
+            'ol',
+            { id: 'messages' },
+            this.renderMessages()
           )
         )
       );
