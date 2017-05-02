@@ -9585,6 +9585,10 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.socket = (0, _socket2.default)('http://localhost:8081');
+    _this.state = {
+      from: '',
+      message: ''
+    };
 
     return _this;
   }
@@ -9597,6 +9601,23 @@ var App = function (_React$Component) {
       });
       this.socket.on('disconnect', function () {
         console.log("Disconnected from server");
+      });
+      this.socket.on('newMessage', function (email) {
+        console.log('New message received', email);
+      });
+      this.socket.emit('createMessage', {
+        from: 'chris@kyg.com',
+        text: "Hey man this is from the client!"
+      });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      console.log("Form submitted");
+      this.socket.emit('createMessage', {
+        from: 'chris@kyg.com',
+        text: "Hey man this is from the client!"
       });
     }
   }, {
@@ -9612,6 +9633,21 @@ var App = function (_React$Component) {
             'h1',
             null,
             'MERN Chat!'
+          ),
+          _react2.default.createElement(
+            'form',
+            { onSubmit: this.handleSubmit.bind(this) },
+            _react2.default.createElement('input', { onChange: function onChange(e) {
+                return console.log(e.target.value);
+              }, className: 'form-control', type: 'text' }),
+            _react2.default.createElement('input', { onChange: function onChange(e) {
+                return console.log(e.target.value);
+              }, className: 'form-control', type: 'text' }),
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-primary' },
+              'Submit'
+            )
           )
         )
       );

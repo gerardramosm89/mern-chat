@@ -28,8 +28,19 @@ app.get('*', function(req, res) {
 
 io.on('connection', (socket) => {
     console.log(`New user connected`);
+    
     socket.on('disconnect', () => {
         console.log("User disconnected");
+    });
+
+    setTimeout(function() {socket.emit('newMessage', {
+        from: 'gerry@kyg.com',
+        text: 'Hello from server!',
+        createdAt: 123
+    })}, 1000);
+
+    socket.on('createMessage', (newMessage) => {
+        console.log('newEmail is: ', newMessage);
     });
 });
 
