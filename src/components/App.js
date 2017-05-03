@@ -77,6 +77,9 @@ class App extends React.Component {
     }, (data) => {
       // console.log(data);
     });
+    this.setState({
+      message: ''
+    })
   }
   changeFrom(e) {
     let targetName = e.target.name;
@@ -98,9 +101,9 @@ class App extends React.Component {
           <h1>MERN Chat!</h1>
           <form onSubmit={this.handleSubmit.bind(this) }>
             <label>from: </label>
-            <input name="from" onChange={this.changeFrom.bind(this)} className="form-control" type="text" />
+            <input name="from" onChange={this.changeFrom.bind(this)} className="form-control" type="text" value={this.state.from} />
             <label>message:</label>
-            <input name="message" onChange={this.changeFrom.bind(this)} className="form-control" type="text" />
+            <input name="message" onChange={this.changeFrom.bind(this)} className="form-control" type="text" value={this.state.message} />
             <button className="btn btn-primary">Submit</button>
           </form>
           <div className="messages--container col-10 offset-1">
