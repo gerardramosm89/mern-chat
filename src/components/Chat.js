@@ -35,6 +35,10 @@ class Chat extends React.Component {
     //   text: "Hey man this is from the client!"
     // });
   }
+  componentWillUnMount() {
+    console.log("Should be disconnecting");
+    this.socket.disconnect();
+  }
   scrollToBottom() {
     var messages = document.body.querySelector('#messages');
     var messagesContainer = document.body.querySelector('.messages--container');
