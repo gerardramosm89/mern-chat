@@ -35,17 +35,28 @@ class App extends React.Component {
     // });
   }
   scrollToBottom() {
-    let messages = document.querySelector('#messages');
-    let messagesContainer = document.querySelector('.messages--container');
+    var messages = document.body.querySelector('#messages');
+    var messagesContainer = document.body.querySelector('.messages--container');
     var newMessage = messages.lastChild;
+    var newMessageHeight = messages.lastChild.clientHeight;
+    if (newMessage.previousSibling) {
+      var siblingHeight = newMessage.previousSibling.clientHeight;
+    } else {
+      siblingHeight = 0;
+    }
+    console.log("newMessageHeight is: ", newMessageHeight);
+    console.log("previousSibling is: ", newMessage.previousSibling);
     var clientHeight = messagesContainer.clientHeight;
-    var scrollTop = messages.scrollTop;
+    var scrollTop = messagesContainer.scrollTop;
     var scrollHeight = messages.scrollHeight;
     console.log("Client height is: ", clientHeight);
     console.log("Scroll top is: ", scrollTop);
     console.log("Scroll height: ", scrollHeight);
-    if (clientHeight + scrollTop >= scrollHeight) {
-      console.log("should scroll");
+    if (clientHeight + scrollTop + newMessageHeight + siblingHeight >= scrollHeight) {
+      console.log("!!SHOULD SCROLL!!");
+      console.log(messages.scrollHeight - clientHeight);
+      // messagesContainer.scrolltop = scrollHeight - clientHeight;
+      document.body.querySelector('.messages--container').scrollTop = scrollHeight - clientHeight;
     }
     
   }
