@@ -27,18 +27,33 @@ class App extends React.Component {
       this.setState({ 
         messages: curMessages 
       }, () => console.log("message was pushed!"));
+      this.scrollToBottom();
     });
     // this.socket.emit('createMessage', {
     //   from: 'chris@kyg.com',
     //   text: "Hey man this is from the client!"
     // });
   }
+  scrollToBottom() {
+    let messages = document.querySelector('#messages');
+    let messagesContainer = document.querySelector('.messages--container');
+    var newMessage = messages.lastChild;
+    var clientHeight = messagesContainer.clientHeight;
+    var scrollTop = messages.scrollTop;
+    var scrollHeight = messages.scrollHeight;
+    console.log("Client height is: ", clientHeight);
+    console.log("Scroll top is: ", scrollTop);
+    console.log("Scroll height: ", scrollHeight);
+    if (clientHeight + scrollTop >= scrollHeight) {
+      console.log("should scroll");
+    }
+    
+  }
   renderMessages() {
     return this.state.messages.map(message => {
       return (
         <li>
           <p>{`${message.from}: ${message.text}`}</p>
-          {/*<p>{message.text}</p>*/}
         </li>
       );
     })
@@ -49,7 +64,7 @@ class App extends React.Component {
       from: this.state.from,
       text: this.state.message
     }, (data) => {
-      console.log(data);
+      // console.log(data);
     });
   }
   changeFrom(e) {
@@ -77,10 +92,12 @@ class App extends React.Component {
             <input name="message" onChange={this.changeFrom.bind(this)} className="form-control" type="text" />
             <button className="btn btn-primary">Submit</button>
           </form>
+          <div className="messages--container col-10 offset-1">
+            <ul id="messages">
+              {this.renderMessages()}
+            </ul>
+          </div>
 
-          <ul id="messages">
-            {this.renderMessages()}
-          </ul>
 
         </div>
       </div>

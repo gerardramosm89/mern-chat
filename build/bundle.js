@@ -9614,11 +9614,28 @@ var App = function (_React$Component) {
         }, function () {
           return console.log("message was pushed!");
         });
+        _this2.scrollToBottom();
       });
       // this.socket.emit('createMessage', {
       //   from: 'chris@kyg.com',
       //   text: "Hey man this is from the client!"
       // });
+    }
+  }, {
+    key: 'scrollToBottom',
+    value: function scrollToBottom() {
+      var messages = document.querySelector('#messages');
+      var messagesContainer = document.querySelector('.messages--container');
+      var newMessage = messages.lastChild;
+      var clientHeight = messagesContainer.clientHeight;
+      var scrollTop = messages.scrollTop;
+      var scrollHeight = messages.scrollHeight;
+      console.log("Client height is: ", clientHeight);
+      console.log("Scroll top is: ", scrollTop);
+      console.log("Scroll height: ", scrollHeight);
+      if (clientHeight + scrollTop >= scrollHeight) {
+        console.log("should scroll");
+      }
     }
   }, {
     key: 'renderMessages',
@@ -9643,7 +9660,7 @@ var App = function (_React$Component) {
         from: this.state.from,
         text: this.state.message
       }, function (data) {
-        console.log(data);
+        // console.log(data);
       });
     }
   }, {
@@ -9697,9 +9714,13 @@ var App = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'ul',
-            { id: 'messages' },
-            this.renderMessages()
+            'div',
+            { className: 'messages--container col-10 offset-1' },
+            _react2.default.createElement(
+              'ul',
+              { id: 'messages' },
+              this.renderMessages()
+            )
           )
         )
       );
