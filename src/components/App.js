@@ -44,18 +44,10 @@ class App extends React.Component {
     } else {
       siblingHeight = 0;
     }
-    console.log("newMessageHeight is: ", newMessageHeight);
-    console.log("previousSibling is: ", newMessage.previousSibling);
     var clientHeight = messagesContainer.clientHeight;
     var scrollTop = messagesContainer.scrollTop;
     var scrollHeight = messages.scrollHeight;
-    console.log("Client height is: ", clientHeight);
-    console.log("Scroll top is: ", scrollTop);
-    console.log("Scroll height: ", scrollHeight);
     if (clientHeight + scrollTop + newMessageHeight + siblingHeight >= scrollHeight) {
-      console.log("!!SHOULD SCROLL!!");
-      console.log(messages.scrollHeight - clientHeight);
-      // messagesContainer.scrolltop = scrollHeight - clientHeight;
       document.body.querySelector('.messages--container').scrollTop = scrollHeight - clientHeight;
     }
     
