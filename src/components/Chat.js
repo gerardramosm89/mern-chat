@@ -34,6 +34,7 @@ class Chat extends React.Component {
     //   from: 'chris@kyg.com',
     //   text: "Hey man this is from the client!"
     // });
+    console.log("the currentProps are: ", this.props);
   }
   componentWillUnMount() {
     console.log("Should be disconnecting");
