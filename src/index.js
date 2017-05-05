@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Chat from './components/Chat';
 import '../styles/main.css';
 import { Provider } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { Link } from 'react-router-dom';
 // Blogs Imports
 import BlogsIndex from './components/blogs_index';
 import BlogsNew from './components/blogs_new';
+import Chat from './components/Chat';
 
 import { createStore, applyMiddleware } from 'redux';
 import {
