@@ -6,7 +6,7 @@ import SocketIOClient from 'socket.io-client';
 class Chat extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = SocketIOClient('http://localhost:8081');
+    // this.socket = SocketIOClient('http://localhost:8080');
     this.state = {
       from: '',
       message: '',
@@ -15,21 +15,21 @@ class Chat extends React.Component {
 
   }
   componentDidMount() {
-    this.socket.on('connect', () => {
-      console.log("Connected to server");
-    });
-    this.socket.on('disconnect', () => {
-      console.log("Disconnected from server");
-    });
-    this.socket.on('newMessage', (message) => {
-      console.log('New message received', message);
-      let curMessages = this.state.messages;
-      curMessages.push(message);
-      this.setState({ 
-        messages: curMessages 
-      }, () => console.log("message was pushed!"));
-      this.scrollToBottom();
-    });
+    // this.socket.on('connect', () => {
+    //   console.log("Connected to server");
+    // });
+    // this.socket.on('disconnect', () => {
+    //   console.log("Disconnected from server");
+    // });
+    // this.socket.on('newMessage', (message) => {
+    //   console.log('New message received', message);
+    //   let curMessages = this.state.messages;
+    //   curMessages.push(message);
+    //   this.setState({ 
+    //     messages: curMessages 
+    //   }, () => console.log("message was pushed!"));
+    //   this.scrollToBottom();
+    // });
     // this.socket.emit('createMessage', {
     //   from: 'chris@kyg.com',
     //   text: "Hey man this is from the client!"
@@ -37,8 +37,8 @@ class Chat extends React.Component {
     console.log("the currentProps are: ", this.props);
   }
   componentWillUnMount() {
-    console.log("Should be disconnecting");
-    this.socket.disconnect();
+    // console.log("Should be disconnecting");
+    // this.socket.disconnect();
   }
   scrollToBottom() {
     var messages = document.body.querySelector('#messages');
@@ -69,15 +69,15 @@ class Chat extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.socket.emit('createMessage', {
-      from: this.state.from,
-      text: this.state.message
-    }, (data) => {
-      // console.log(data);
-    });
-    this.setState({
-      message: ''
-    })
+    // this.socket.emit('createMessage', {
+    //   from: this.state.from,
+    //   text: this.state.message
+    // }, (data) => {
+    //   // console.log(data);
+    // });
+    // this.setState({
+    //   message: ''
+    // })
   }
   changeFrom(e) {
     let targetName = e.target.name;

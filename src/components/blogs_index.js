@@ -20,7 +20,6 @@ class BlogsIndex extends Component {
   }
 
   render() {
-    console.log("render", this.props.blogs);
     return (
       <div className="container">
         <h1>Blogs Index</h1>

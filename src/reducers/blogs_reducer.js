@@ -1,5 +1,9 @@
 import _ from 'lodash';
 
+import SocketIOClient from 'socket.io-client';
+
+
+console.log("blogs_reducer was loaded");
 export default function(state = {}, action) {
   switch (action.type) {
     case 'FETCH_POSTS':
