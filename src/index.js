@@ -1,20 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '../styles/main.css';
-import { Provider } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch, 
+  Link
+} from 'react-router-dom';
 
-// Blogs Imports
+// Components
 import BlogsIndex from './components/blogs_index';
 import BlogsNew from './components/blogs_new';
 import Chat from './components/Chat';
 
+// Redux
 import { createStore, applyMiddleware } from 'redux';
-import {
-  BrowserRouter,
-  Route,
-  Switch
-} from 'react-router-dom';
+import { Provider } from 'react-redux';
 import promise from 'redux-promise';
 import reducers from './reducers';
 
@@ -36,7 +37,6 @@ ReactDOM.render(
 
       </div>
     </BrowserRouter>
-    {/*<App />*/}
   </Provider>
   ,document.getElementById('root')
 );

@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import SocketIOClient from 'socket.io-client';
-
 class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +10,6 @@ class Chat extends React.Component {
       message: '',
       messages: []
     }
-
   }
   componentDidMount() {
     // this.socket.on('connect', () => {

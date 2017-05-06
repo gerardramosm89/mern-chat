@@ -9,19 +9,16 @@ socket.on('connect', () => {
 });
 socket.on('disconnect', () => {
   console.log("Disconnected");
+  fetchPosts();
 });
 
-
+// const Variables
 const rootUrl = 'http://reduxblog.herokuapp.com/api';
-
 const apiKey = '?key=01211989'
+
+// Action Functions
 export function fetchPosts(testData) {
-  socket.emit('createMessage', {
-    from: 'chris@kyg.com',
-    text: "Hey man this is from the client!"
-  }, () => {
-    console.log("Hello");
-  });
+  console.log("Fetch posts was called");
   const request = axios.get(`${rootUrl}/posts${apiKey}`);
   return {
     type: 'FETCH_POSTS',
@@ -29,10 +26,14 @@ export function fetchPosts(testData) {
   };
 }
 
-export function createBlog(data) {
-  console.log("Post action attempted! and data we tried to pass through is: ", data);
-  const request = axios.post(`${rootUrl}/posts${apiKey}`, data);
+export function sendMessage(data) {
+  socket.emit('createMessage', data, () => {
+    console.log("Hello");
+  });
+}
 
+export function createBlog(data) {
+  const request = axios.post(`${rootUrl}/posts${apiKey}`, data);
   return {
     type: 'NEW_BLOG',
     payload: request

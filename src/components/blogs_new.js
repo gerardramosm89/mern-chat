@@ -36,7 +36,6 @@ class BlogsNew extends Component {
     });
   }
   render() {
-    console.log(this.props.newBlog);
     return (
       <div>
         <h1>{this.props.newBlog.title}</h1>
