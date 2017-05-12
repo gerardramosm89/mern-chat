@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { sendMessage } from '../actions/index';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -9,7 +11,7 @@ class Chat extends React.Component {
       from: '',
       message: '',
       messages: []
-    }
+    };
   }
   componentDidMount() {
     // this.socket.on('connect', () => {
@@ -66,15 +68,18 @@ class Chat extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    this.props.sendMessage({ from: this.state.from, text: this.state.message });
     // this.socket.emit('createMessage', {
     //   from: this.state.from,
     //   text: this.state.message
     // }, (data) => {
     //   // console.log(data);
     // });
-    // this.setState({
-    //   message: ''
-    // })
+
+    // Taking this out because action will handle the submit
+    this.setState({
+      message: ''
+    });
   }
   changeFrom(e) {
     let targetName = e.target.name;
@@ -114,4 +119,7 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat;
+// function mapStateToProps(state) {
+//   return { props: state.props}
+// }
+export default connect(null, { sendMessage })(Chat);

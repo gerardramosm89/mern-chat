@@ -3,7 +3,7 @@ import axios from 'axios';
 // SocketIO
 import SocketIOClient from 'socket.io-client';
 const socket = SocketIOClient('http://localhost:8080');
-
+console.log('socket is: ', socket);
 socket.on('connect', () => {
   console.log("Connected to server");
 });
@@ -27,9 +27,14 @@ export function fetchPosts(testData) {
 }
 
 export function sendMessage(data) {
+  console.log("send message action's data was:", data);
   socket.emit('createMessage', data, () => {
     console.log("Hello");
   });
+  return {
+    type: 'SEND_MESSAGE',
+    payload: data
+  };
 }
 
 export function createBlog(data) {
