@@ -14,7 +14,7 @@ socket.on('disconnect', () => {
 
 // const Variables
 const rootUrl = 'http://reduxblog.herokuapp.com/api';
-const apiKey = '?key=01211989'
+const apiKey = '?key=01211989';
 
 // Action Functions
 export function fetchPosts(testData) {
